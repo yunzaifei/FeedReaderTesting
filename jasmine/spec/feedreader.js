@@ -21,13 +21,22 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
+        /**
+         * 测试字段是否有效而且不为空
+         * @param {string} name 测试字段 
+         */
+        function sameDetection(name) {
+            expect(name).toBeDefined();
+            expect(name).not.toBe('');
+         }
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
          */
         it('has link and the link is not empty', function() {
             for(var i = 0; i < allFeeds.length; i++){
-                expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url).not.toBe('');
+                sameDetection(allFeeds[i].url)
+                var regularExpressionUrl = /^((ht|f)tps?):\/\/([\w\-]+(\.[\w\-]+)*\/)*[\w\-]+(\.[\w\-]+)*\/?(\?([\w\-\.,@?^=%&:\/~\+#]*)+)?/; // 检查 URL 格式是否正确的正规表达式
+                expect(allFeeds[i].url).toMatch(regularExpressionUrl); // 检查格式
             }
         });
 
@@ -36,8 +45,7 @@ $(function() {
          */
         it('has name and the name is not empty', function() {
             for(var i = 0; i < allFeeds.length; i++){
-                expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name).not.toBe('');
+                sameDetection(allFeeds[i].name)
             }
         });
     });
